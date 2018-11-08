@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "format": "prettier --write 'packages/*/*.*' \"packages/*/!(node_modules)/**/*.*\""
+  },
+  "devDependencies": {
+    "lerna": "^3.4.3",
+    "prettier": "^1.15.1"
+  }
+}

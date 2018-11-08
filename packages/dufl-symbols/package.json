@@ -1,0 +1,8 @@
+{
+  "name": "dufl-symbols",
+  "version": "0.18.0",
+  "description": "Modern zero-config JavaScript toolchain",
+  "author": "Robin Meillet <robin.meillet@epitech.eu>",
+  "license": "MIT",
+  "main": "./index.js"
+}

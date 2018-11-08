@@ -1,0 +1,19 @@
+{
+  "name": "dufl-cli",
+  "version": "0.18.0",
+  "description": "Modern zero-config JavaScript toolchain",
+  "author": "Robin Meillet <robin.meillet@epitech.eu>",
+  "license": "MIT",
+  "bin": {
+    "dufl-cli": "./index.js"
+  },
+  "dependencies": {
+    "caporal": "^0.10.0",
+    "chalk": "^2.4.1",
+    "dotenv": "^6.1.0",
+    "dufl": "0.18.0",
+    "dufl-symbols": "0.18.0",
+    "dufl-utils": "0.18.0",
+    "outdent": "^0.7.0"
+  }
+}
