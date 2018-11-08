@@ -1,7 +1,5 @@
 'use strict';
 
-const toDestructurable = symbol => symbol.toUpperCase().replace('-', '_');
-
 const MONO_REPO_LERNA = 'mono-repo-lerna';
 const MONO_REPO_REDIRECTION = 'mono-repo-redirection';
 const NODE_APP = 'node-app';
@@ -17,7 +15,6 @@ const TEST = 'test';
 const WATCH = 'watch';
 
 module.exports = {
-  toDestructurable,
   commands: {
     ANALYZER,
     BUILD,
