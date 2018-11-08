@@ -38,7 +38,7 @@ if (!projectPkgType) {
     red(
       outdent`
         When using "dufl-cli", you should have a "type" field in your "package.json".
-        Otherwise, scaffold new project with "npx ..."
+        Otherwise, make new project with "npx dufl-scaffold" :) ...
       `,
     ),
   );
@@ -47,7 +47,7 @@ if (!projectPkgType) {
 }
 
 if (!ensurePkgTypeIsValid(Object.values(symbols.leafs), projectPkgType)) {
-  console.log(red(`Package type "${projectPkgType}" hasn't valid symbol.`));
+  console.log(red(`Package type "${projectPkgType}" is not valid.`));
 
   process.exit(1);
 }
