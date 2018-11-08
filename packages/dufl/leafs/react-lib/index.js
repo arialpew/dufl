@@ -18,33 +18,46 @@ module.exports = ({ outdent, symbols: { WATCH, BUILD, TEST, ANALYZER } }) => ({
   ],
   commands: {
     [WATCH]: {
-      description: '',
+      description: 'Watch source for development (non-optimized build)',
       help: outdent`
-        Some help
-      `,
+        When you use "watch" command, we will watch source code and build when something changes.
+
+        The build result is not optimized and minified, you should not use it in production.
+
+        You can make production build with "build" command when you are done. 
+     `,
       webpack: development,
       env: 'development',
     },
     [BUILD]: {
-      description: '',
+      description:
+        'Build source into production-ready bundle (optimized build)',
       help: outdent`
-        Some help
+        When you use "build" command, we will build the application for production.
+
+        Optimization are applied (constant folding, dead code elimination, ...) and we output minifed JavaScript code.
       `,
       webpack: production,
       env: 'production',
     },
     [ANALYZER]: {
-      description: '',
+      description: 'Analyze dependencies tree',
       help: outdent`
-        Some help
+        Sometimes, it's usefull to analyze dependencies tree of a package.
+
+        You can use the "analyzer" command, it will start a local server and open your browser (http://localhost:8888).
+
+        Go on your browser and you can see the entiere dependencies tree, search package, and more :) .
       `,
       webpack: production,
       env: 'production',
     },
     [TEST]: {
-      description: '',
+      description: 'Start test suites',
       help: outdent`
-        Some help
+        Tests are targeted when file path match "__tests__/*.spec.js".
+
+        We use Jest (https://jestjs.io) so you can put any Jest option like "test -- --watchAll" :) .
       `,
       env: 'test',
     },
