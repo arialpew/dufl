@@ -82,7 +82,7 @@ const ref = program
           },
           {
             name:
-              'Dufl redirection (usefull when you work in a large mono-repository with multiple Dufl projects)',
+              'Dufl redirection (useful when you work in a large mono-repository with multiple Dufl projects)',
             value: symbols.leafs.MONO_REPO_REDIRECTION,
           },
         ],
