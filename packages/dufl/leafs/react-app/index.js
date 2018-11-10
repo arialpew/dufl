@@ -56,6 +56,13 @@ module.exports = ({ outdent, symbols: { DEV, BUILD, TEST, ANALYZER } }) => ({
         We use Jest (https://jestjs.io) so you can put any Jest option like "test -- --watchAll" :) .
       `,
       env: 'test',
+      params: {
+        '--watch': {
+          description: 'Enable watch mode',
+          default: false,
+          validator: types => types.BOOL,
+        },
+      },
     },
   },
 });
