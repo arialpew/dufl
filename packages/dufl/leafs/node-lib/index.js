@@ -1,9 +1,11 @@
 'use strict';
 
+const sharedTestParams = require('../shared-test-params');
+
 const development = require('./webpack.config.dev');
 const production = require('./webpack.config.prod');
 
-module.exports = ({ outdent, symbols: { WATCH, BUILD, TEST, ANALYZER } }) => ({
+module.exports = ({ outdent, commands: { WATCH, BUILD, TEST, ANALYZER } }) => ({
   shouldPass: ({ main }) => {
     if (!main) {
       throw new Error(
@@ -60,13 +62,7 @@ module.exports = ({ outdent, symbols: { WATCH, BUILD, TEST, ANALYZER } }) => ({
         We use Jest (https://jestjs.io) so you can put any Jest option like "test -- --watchAll" :) .
       `,
       env: 'test',
-      params: {
-        '--watch': {
-          description: 'Enable watch mode',
-          default: false,
-          validator: types => types.BOOL,
-        },
-      },
+      params: sharedTestParams(outdent),
     },
   },
 });
