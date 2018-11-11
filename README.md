@@ -220,6 +220,7 @@ If your project needs more customization, you should not use `Dufl`.
 
 Difference with `create-react-app` when you use `Dufl` with `react-app` package type :
 
+- No old browser/environment support (see philosophy).
 - No Yarn support.
 - No CSS module and no SASS preprocessor.
 - No TypeScript and no decorator.
@@ -227,6 +228,8 @@ Difference with `create-react-app` when you use `Dufl` with `react-app` package 
 - Env var supported but without expansion.
 - Webpack Bundle Analyzer is available to inspect bundle size.
 - Mono-repository with Lerna is supported.
+- Less configurable (for example, no "browserlist" in "package.json").
+- There's probably more minor difference.
 
 Internally, `Dufl` use theses packages :
 

@@ -198,6 +198,7 @@ Your environment will have everything you need to build project :
 - Latest ES6/ES7 features **WITHOUT transformation** (except for things like static-class-properties).
 - React, JSX.
 - Autoprefixed CSS, so you don’t need `-webkit-` or other prefixes.
+- Emotion transformation and Babel macro support.
 - A fast interactive unit test runner with built-in support for coverage reporting.
 - A live development server that warns about common mistakes.
 - A build script to bundle JS, JSON, CSS, SVG and images for production, with hashes and sourcemaps.
@@ -219,6 +220,7 @@ If your project needs more customization, you should not use `Dufl`.
 
 Difference with `create-react-app` when you use `Dufl` with `react-app` package type :
 
+- No old browser/environment support (see philosophy).
 - No Yarn support.
 - No CSS module and no SASS preprocessor.
 - No TypeScript and no decorator.
@@ -226,6 +228,8 @@ Difference with `create-react-app` when you use `Dufl` with `react-app` package 
 - Env var supported but without expansion.
 - Webpack Bundle Analyzer is available to inspect bundle size.
 - Mono-repository with Lerna is supported.
+- Less configurable (for example, no "browserlist" in "package.json").
+- There's probably more minor difference.
 
 Internally, `Dufl` use theses packages :
 
@@ -234,6 +238,21 @@ Internally, `Dufl` use theses packages :
 - Jest
 - ESlint
 - Pkg
+
+## Future work
+
+- Ambigous package name is not supported, the CLI throw an error if something goes wrong with aliasing but scaffold don't care (we had to work more on how we handle aliasing).
+- No ESM output (Rollup ? Or don't care and wait ESM output support in Webpack) ?
+- The "nomodule" script tag ?
+- Modern browsers only (should we support more version ?).
+- More help in CLI, documentation and clear error ?
+- "package.json" properties checker (bin, main, sideEffects, and move package type configuration in deeper key to avoid NPM key polution) ?
+- Pass more options to Jest ?
+- Avoid Emotion because Emotion doesn't support browserlist ? Go for CSS module ?
+- Internal "eslint" config ?
+- Update dependencies to latest version.
+- New package type ?
+- Rebase things from `create-react-app` ?
 
 ## Updating To New Release
 
@@ -332,8 +351,9 @@ We don’t recommend this approach.
 
 ## Acknowledgements
 
-Dufl is a fork of "create-react-app" and we are grateful to the authors and maintainers of "create-react-app" and related projects.
+`Dufl` is a fork of `create-react-app` and we are grateful to the authors and maintainers of `create-react-app` and related projects.
 
 ## License
 
 Dufl is open source software [licensed as MIT](https://github.com/kMeillet/dufl/blob/master/LICENSE).
+
