@@ -25,7 +25,9 @@ const { name, version, description } = require('./package');
 const hasPkgJson = fs.existsSync(paths.appPackageJson);
 
 if (!hasPkgJson) {
-  console.log(red(`Package.json file is required in order to use "dufl-cli" ...`));
+  console.log(
+    red(`Package.json file is required in order to use "dufl-cli" ...`),
+  );
 
   process.exit(1);
 }
