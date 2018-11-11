@@ -29,7 +29,7 @@ With some addition :
 `Dufl` works on Windows/MacOS/Linux with :
 
 ```
-Node.js >= v9
+Node.js >= 9
 NPM >= 6
 ```
 
