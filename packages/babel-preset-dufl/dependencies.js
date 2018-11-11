@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const { versions } = require('dufl-symbols');
 
 const { validateBoolOption } = require('./validate');
 
@@ -45,15 +46,6 @@ module.exports = (api, opts) => {
     `);
   }
 
-  const node = {
-    node: 'current',
-  };
-
-  const browsers = {
-    browsers:
-      'last 2 Chrome version, last 1 Edge version, last 1 Firefox version, last 1 Safari version, last 1 and_chr version, last 1 ios_saf version',
-  };
-
   return {
     // Babel assumes ES Modules, which isn't safe until CommonJS
     // dies. This changes the behavior to assume CommonJS unless
@@ -65,7 +57,7 @@ module.exports = (api, opts) => {
         // ES features necessary for user's Node version.
         require('@babel/preset-env').default,
         {
-          targets: node,
+          targets: { node: versions.NODE },
           // Do not transform modules to CJS.
           modules: false,
           // Exclude transforms that make all code slower.
@@ -76,7 +68,7 @@ module.exports = (api, opts) => {
         // Latest stable ECMAScript features
         require('@babel/preset-env').default,
         {
-          targets: browsers,
+          targets: { browsers: versions.BROWSERS },
           // If users import all core-js they're probably not concerned with
           // bundle size. We shouldn't rely on magic to try and shrink it.
           ignoreBrowserslistConfig: true,

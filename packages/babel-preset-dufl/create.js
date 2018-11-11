@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const { versions } = require('dufl-symbols');
 
 const { validateBoolOption, validatePlatform } = require('./validate');
 
@@ -42,15 +43,6 @@ module.exports = (api, opts, env) => {
     `);
   }
 
-  const node = {
-    node: 'current',
-  };
-
-  const browsers = {
-    browsers:
-      'last 2 Chrome version, last 1 Edge version, last 1 Firefox version, last 1 Safari version, last 1 and_chr version, last 1 ios_saf version',
-  };
-
   return {
     presets: [
       isEnvTest && [
@@ -58,7 +50,7 @@ module.exports = (api, opts, env) => {
         require('@babel/preset-env').default,
         {
           targets: {
-            node: 'current',
+            node: versions.NODE,
           },
         },
       ],
@@ -66,7 +58,9 @@ module.exports = (api, opts, env) => {
         // Latest stable ECMAScript features
         require('@babel/preset-env').default,
         {
-          targets: isNodePlatform ? node : browsers,
+          targets: isNodePlatform
+            ? { node: versions.NODE }
+            : { browsers: versions.BROWSERS },
           // If users import all core-js they're probably not concerned with
           // bundle size. We shouldn't rely on magic to try and shrink it.
           ignoreBrowserslistConfig: true,

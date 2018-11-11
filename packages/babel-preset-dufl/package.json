@@ -19,6 +19,7 @@
     "babel-plugin-dynamic-import-node": "2.2.0",
     "babel-plugin-emotion": "9.2.11",
     "babel-plugin-macros": "2.4.2",
-    "babel-plugin-transform-react-remove-prop-types": "0.4.18"
+    "babel-plugin-transform-react-remove-prop-types": "0.4.18",
+    "dufl-symbols": "^0.21.0"
   }
 }
