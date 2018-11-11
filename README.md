@@ -22,14 +22,14 @@ With some addition :
 
 - **You Are Locked :** You can't “eject”. If you need to change configuration or add specific Babel/Webpack plugin, you should not use `Dufl` in your project.
 
-- **Modern Environment Only :** `Dufl` produce smaller output than standard solution, because we support Node.js >= v9 and last 2 Chrome version, last Edge version, last Firefox version, last Safari version, last Android Chrome version, last iOS Safari version. There's no plan to add support for old browsers.
+- **Modern Environment Only :** `Dufl` produce smaller output than standard solution, because we support Node.js >= v10 and last 2 Chrome version, last Edge version, last Firefox version, last Safari version, last Android Chrome version, last iOS Safari version. There's no plan to add support for old browsers.
 
 - **Support Mono Repository :** `Dufl` support mono-repository with Lerna. It's the biggest trade-off when you work with `create-react-app`, you can't share code easily. `Dufl` support mono-repository with fast recompilation across package and map internal dependencies to avoid bloated bundle / dependencies duplication.
 
 `Dufl` works on Windows/MacOS/Linux with :
 
 ```
-Node.js >= 9
+Node.js >= 10
 NPM >= 6
 ```
 
@@ -42,7 +42,7 @@ They are preconfigured and hidden so that you can focus on the code.
 
 Just create a project, and you’re good to go, nothing more.
 
-**You’ll need to have Node 9 or later and NPM 6 or later on your local development machine** (but it’s not required on the server). You can use [nvm](https://github.com/creationix/nvm#installation) (MacOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to easily switch Node versions between different projects.
+**You’ll need to have Node 10 or later and NPM 6 or later on your local development machine** (but it’s not required on the server). You can use [nvm](https://github.com/creationix/nvm#installation) (MacOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to easily switch Node versions between different projects.
 
 ```sh
 npx dufl-scaffold
@@ -60,8 +60,16 @@ When you make new package with "dufl-scaffold", you will be prompted for :
 
 - **Package type :** this determine which platform and project type you will make (Node.js application or library ? React.js application or library ?).
 
-**Note :** We use package.json "type" key (package type) to determine which platform is targeted. Don't be surprised if you notice this new key.
+**Note :** We use package.json "dufl" key to determine which platform is targeted. Don't be surprised if you notice this new key.
 
+```js
+{
+  ...
+  "dufl": {
+    "type": "react-app"
+  }
+}
+```
 ### Folder Structure And Installation
 
 If you have a "packages" folder, your project will be created inside this folder instead of current folder (we support Lerna mono-repository).<br>
@@ -239,20 +247,19 @@ Internally, `Dufl` use theses packages :
 - ESlint
 - Pkg
 
-## Future work
+## Future Work
 
-- Ambigous package name is not supported, the CLI throw an error if something goes wrong with aliasing but scaffold don't care (we had to work more on how we handle aliasing).
+- Ambigous package name is not supported, the CLI throw an error if something goes wrong with aliasing but scaffold don't care (we had to work more on how we handle aliasing) ?
 - No ESM output (Rollup ? Or don't care and wait ESM output support in Webpack) ?
 - The "nomodule" script tag ?
-- Modern browsers only (should we support more version ?).
-- More help in CLI, documentation and clear error ?
-- "package.json" properties checker (bin, main, sideEffects, and move package type configuration in deeper key to avoid NPM key polution) ?
-- Pass more options to Jest ?
+- Modern browsers only (should we support more version ? Check which transform are enabled) ?
+- More help in CLI, documentation and clear error/debug mode ?
 - Avoid Emotion because Emotion doesn't support browserlist ? Go for CSS module ?
 - Internal "eslint" config ?
-- Update dependencies to latest version.
-- New package type ?
+- Update dependencies to latest version ?
 - Rebase things from `create-react-app` ?
+- Testing with virtual filesystem ?
+- New package type ?
 
 ## Updating To New Release
 
@@ -351,9 +358,9 @@ We don’t recommend this approach.
 
 ## Import New File Type
 
-Suppose you want to import a new file type, like "txt" file.
+`Dufl` support Babel macros, you can install any macros or make your own.
 
-`Dufl` support `babel-macro`, you can use `preval.macro` to evaluate code at build time :
+Use `preval.macro` to evaluate code at build time :
 
 ```js
 import preval from 'preval.macro';
@@ -363,9 +370,13 @@ const myFileContent = preval`
 
   module.exports = fs.readFileSync(require.resolve('./my-file.txt'), 'utf8');
 `;
+
+↓ ↓ ↓ ↓ ↓ ↓
+
+const myFileContent = 'file content';
 ```
 
-Another example, optimize GraphQL query/mutation to avoid runtime cost with `graphql.macro` :
+Optimize GraphQL query/mutation to avoid runtime cost with `graphql.macro` :
 
 ```js
 import { loader } from 'graphql.macro';
