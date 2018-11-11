@@ -113,6 +113,18 @@ Inside the newly created project, you can run some built-in commands which depen
 |------------------------------------------------------------------|
 ```
 
+Use "dufl-cli" to run command :
+
+```sh
+npm run dufl-cli
+```
+
+Show help for specific command (like "test") :
+
+```sh
+npm run dufl-cli test -- --help
+```
+
 ### `npm run build`
 
 **Supported package type :** ALL
@@ -162,7 +174,7 @@ This will produce binaries for Windows/MacOS/Linux (64 bits).
 Runs the test in non-interactive mode.<br>
 By default, runs tests related to files changed since the last commit.
 
-If you want to run watch mode, put "--watch" or "--watchAll" flag after the command.
+If you want to run watch mode, put "--watch" flag after the command.
 
 ```sh
 npm run test -- --watch
@@ -201,7 +213,7 @@ If your project needs more customization, you should not use `Dufl`.
 
 - Support CSS pre-processor like SASS.
 - Support TypeScript.
-- Support all new ES features immediatly (example : Decorator and pipeline operator is not supported by `Dufl`).
+- Support all new ES features immediatly (example : Decorator and pipeline operator are not supported by `Dufl`).
 
 Difference with `create-react-app` when you use `Dufl` with `react-app` package type :
 
