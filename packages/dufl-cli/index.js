@@ -119,6 +119,7 @@ const leafExecuted = leaf({
   commands,
 });
 
+const shouldPass = leafExecuted.shouldPass || (() => true);
 const requiredFiles = leafExecuted.requiredFiles || [];
 const leafCommands = leafExecuted.commands || {};
 
@@ -155,6 +156,14 @@ for (let [command, options] of Object.entries(leafCommands)) {
           `Leaf "${projectPkgType}" can't run "${command}" command, are you sure this command exist ?`,
         ),
       );
+
+      process.exit(1);
+    }
+
+    try {
+      shouldPass(projectPkg);
+    } catch (err) {
+      console.log(red(err.message));
 
       process.exit(1);
     }
