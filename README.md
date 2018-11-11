@@ -349,6 +349,37 @@ DANGEROUSLY_DISABLE_HOST_CHECK=true
 
 We don’t recommend this approach.
 
+## Import New File Type
+
+Suppose you want to import a new file type, like "txt" file.
+
+`Dufl` support `babel-macro`, you can use `preval.macro` to evaluate code at build time :
+
+```js
+import preval from 'preval.macro';
+
+const myFileContent = preval`
+  const fs = require('fs');
+
+  module.exports = fs.readFileSync(require.resolve('./my-file.txt'), 'utf8');
+`;
+```
+
+Another example, optimize GraphQL query/mutation to avoid runtime cost with `graphql.macro` :
+
+```js
+import { loader } from 'graphql.macro';
+
+const query = loader('./query.graphql');
+
+↓ ↓ ↓ ↓ ↓ ↓
+
+const query = {
+  "kind": "Document",
+  "definitions": [{
+    ...
+```
+
 ## Acknowledgements
 
 `Dufl` is a fork of `create-react-app` and we are grateful to the authors and maintainers of `create-react-app` and related projects.
