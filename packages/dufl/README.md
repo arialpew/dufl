@@ -4,7 +4,9 @@ Modern zero-config JavaScript toolchain.
 
 A fork of `create-react-app`, work with multiple JavaScript platform and support mono-repository.
 
-This project was made to match my personnal use-case but i think it's relevant to share it publicly.
+This project was made to match my personal use-case but i think it's relevant to share it publicly.
+
+**`Dufl` is not production-ready, you should be aware that some edge case can ruin everything so inspect your bundle with analyzer before deployment.**
 
 ## Philosophy
 
@@ -88,9 +90,9 @@ project-name
 ├── package.json
 └── src
     ├── __tests__
-        ├── index.spec.js
+        └── index.spec.js
     ├── .env
-    ├── index.js
+    └── index.js
 ```
 
 > Note: You must create custom environment variables beginning with `DUFL_`. Any other variables except `NODE_ENV` will be ignored to avoid accidentally [exposing a private key on the machine that could have the same name](https://github.com/facebook/create-react-app/issues/865#issuecomment-252199527). Changing any environment variables will require you to restart the development server if it is running.
@@ -111,6 +113,18 @@ Inside the newly created project, you can run some built-in commands which depen
 |------------------------------------------------------------------|
 | react-lib |   ✅   |  ❌  |   ✅   |  ❌  |   ✅  |     ✅    |
 |------------------------------------------------------------------|
+```
+
+Use "dufl-cli" to run command :
+
+```sh
+npm run dufl-cli
+```
+
+Show help for specific command (like "test") :
+
+```sh
+npm run dufl-cli test -- --help
 ```
 
 ### `npm run build`
@@ -162,7 +176,7 @@ This will produce binaries for Windows/MacOS/Linux (64 bits).
 Runs the test in non-interactive mode.<br>
 By default, runs tests related to files changed since the last commit.
 
-If you want to run watch mode, put "--watch" or "--watchAll" flag after the command.
+If you want to run watch mode, put "--watch" flag after the command.
 
 ```sh
 npm run test -- --watch
@@ -201,7 +215,7 @@ If your project needs more customization, you should not use `Dufl`.
 
 - Support CSS pre-processor like SASS.
 - Support TypeScript.
-- Support all new ES features immediatly (example : Decorator and pipeline operator is not supported by `Dufl`).
+- Support all new ES features immediatly (example : Decorator and pipeline operator are not supported by `Dufl`).
 
 Difference with `create-react-app` when you use `Dufl` with `react-app` package type :
 
