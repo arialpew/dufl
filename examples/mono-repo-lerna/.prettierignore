@@ -1,0 +1,4 @@
+*.lock
+*.log
+package-lock.json
+.env

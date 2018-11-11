@@ -1,0 +1,24 @@
+{
+	"name": "dufl-node-lib",
+	"private": true,
+	"version": "0.0.1",
+	"description": "Description",
+	"type": "node-lib",
+	"main": "./build/dufl-node-lib.js",
+	"sideEffects": false,
+	"scripts": {
+		"watch": "dufl-cli watch",
+		"build": "dufl-cli build",
+		"test": "dufl-cli test",
+		"analyzer": "dufl-cli analyzer",
+		"dufl-cli": "dufl-cli"
+	},
+	"devDependencies": {
+		"dufl-cli": "^0.21.0"
+	},
+	"dependencies": {},
+	"peerDependencies": {},
+	"eslintConfig": {
+		"extends": "react-app"
+	}
+}

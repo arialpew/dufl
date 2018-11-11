@@ -1,0 +1,25 @@
+{
+	"name": "dufl-react-app",
+	"private": true,
+	"version": "0.0.1",
+	"description": "Description",
+	"type": "react-app",
+	"scripts": {
+		"dev": "dufl-cli dev",
+		"build": "dufl-cli build",
+		"test": "dufl-cli test",
+		"analyzer": "dufl-cli analyzer",
+		"dufl-cli": "dufl-cli"
+	},
+	"devDependencies": {
+		"dufl-cli": "^0.21.0"
+	},
+	"dependencies": {
+		"react": "^16.7.0-alpha.0",
+		"react-dom": "^16.7.0-alpha.0"
+	},
+	"peerDependencies": {},
+	"eslintConfig": {
+		"extends": "react-app"
+	}
+}

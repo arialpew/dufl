@@ -1,0 +1,4 @@
+node_modules
+packages/**/package.json.lerna_backup
+*.log
+.env

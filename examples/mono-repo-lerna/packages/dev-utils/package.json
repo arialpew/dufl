@@ -1,0 +1,18 @@
+{
+	"name": "@organization/dev-utils",
+	"private": true,
+	"version": "0.0.1",
+	"description": "Dufl CLI redirection",
+	"type": "mono-repo-lerna",
+	"bin": {
+		"dufl-cli": "./node_modules/.bin/dufl-cli"
+	},
+	"scripts": {
+		"dufl-cli": "dufl-cli"
+	},
+	"devDependencies": {
+		"dufl-cli": "^0.21.0"
+	},
+	"dependencies": {},
+	"peerDependencies": {}
+}
