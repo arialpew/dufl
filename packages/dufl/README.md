@@ -22,7 +22,7 @@ With some addition :
 
 - **You Are Locked :** You can't “eject”. If you need to change configuration or add specific Babel/Webpack plugin, you should not use `Dufl` in your project.
 
-- **Modern Environment Only :** `Dufl` and produce smaller output than standard solution, because we support Node.js >= v9 and last 2 Chrome version, last Edge version, last Firefox version, last Safari version, last Android Chrome version, last iOS Safari version. There's no plan to add support for old browsers.
+- **Modern Environment Only :** `Dufl` produce smaller output than standard solution, because we support Node.js >= v9 and last 2 Chrome version, last Edge version, last Firefox version, last Safari version, last Android Chrome version, last iOS Safari version. There's no plan to add support for old browsers.
 
 - **Support Mono Repository :** `Dufl` support mono-repository with Lerna. It's the biggest trade-off when you work with `create-react-app`, you can't share code easily. `Dufl` support mono-repository with fast recompilation across package and map internal dependencies to avoid bloated bundle / dependencies duplication.
 
