@@ -9,24 +9,26 @@ const generateVersion = node =>
     .map(os => `node${node}-${os}`)
     .join(',');
 
-module.exports = async ({ paths, output, requiredFiles }) => {
+module.exports = async ({ versions, paths, output, requiredFiles }) => {
   if (!checkRequiredFiles(requiredFiles(paths))) {
     process.exit(1);
   }
 
-  const nodeVersion = 10;
-
   console.log(
     chalk.cyan(
-      `Creating binaries with Node.js v${nodeVersion} embedded + your app, for Windows/MacOS/Linux x64 ...`,
+      `Creating binaries with Node.js v${
+        versions.NODE
+      } embedded + your app, for Windows/MacOS/Linux x64 ...`,
     ),
   );
+
+  console.log();
 
   try {
     await exec([
       paths.resolver('build', `${output}.js`),
       '--targets',
-      generateVersion(nodeVersion),
+      generateVersion(`node${versions.NODE}`),
       '--output',
       paths.resolver('bin', output),
     ]);

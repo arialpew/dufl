@@ -10,6 +10,7 @@ const { map, toWebpack } = require('dufl-utils/map-peer-dependencies');
 const { base, eslint } = require('../webpack');
 
 module.exports = ({
+  versions,
   projectPkg,
   paths,
   output,
@@ -28,7 +29,7 @@ module.exports = ({
 
       console.log(chalk.cyan('Starting watch mode...\n'));
 
-      const args = { paths, output, alias, env, helpers: { eslint } };
+      const args = { versions, paths, output, alias, env, helpers: { eslint } };
 
       const webpackConfig = base(options.webpack(args), args);
 

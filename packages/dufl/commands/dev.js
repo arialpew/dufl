@@ -19,6 +19,7 @@ const { base, css, eslint } = require('../webpack');
 const createDevServerConfig = require('./dev-server');
 
 module.exports = ({
+  versions,
   projectPkg,
   output,
   requiredFiles,
@@ -47,7 +48,14 @@ module.exports = ({
 
       const alias = toWebpack(paths, map(paths));
 
-      const args = { paths, output, alias, env, helpers: { css, eslint } };
+      const args = {
+        versions,
+        paths,
+        output,
+        alias,
+        env,
+        helpers: { css, eslint },
+      };
 
       const webpackConfig = base(options.webpack(args), args);
 

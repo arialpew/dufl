@@ -19,6 +19,7 @@ const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024;
 const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024;
 
 module.exports = ({
+  versions,
   projectPkg,
   paths,
   output,
@@ -61,6 +62,7 @@ module.exports = ({
       console.log();
 
       const args = {
+        versions,
         paths,
         output,
         alias,

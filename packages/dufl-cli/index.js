@@ -13,7 +13,7 @@ const fs = require('fs');
 const outdent = require('outdent');
 const program = require('caporal');
 const { cyan, red } = require('chalk');
-const symbols = require('dufl-symbols');
+const { leafs, commands, versions } = require('dufl-symbols');
 const { formatOutput, ensurePkgTypeIsValid } = require('dufl-utils');
 const paths = require('dufl-utils/paths');
 const commands = require('dufl');
@@ -32,15 +32,25 @@ if (!hasPkgJson) {
   process.exit(1);
 }
 
+const availablePkgTypes = Object.values(leafs).join(', ');
 const projectPkg = require(paths.appPackageJson);
-const projectPkgType = projectPkg.type;
+const projectPkgDufl = projectPkg.dufl || {};
+const projectPkgType = projectPkgDufl.type;
 
-if (!projectPkgType) {
+if (!projectPkgDufl) {
   console.log(
     red(
       outdent`
-        When using "dufl-cli", you should have a "type" field in your "package.json".
-        Otherwise, make new project with "npx dufl-scaffold" :) ...
+        When using "dufl-cli", you should have a "dufl" field in your "package.json".
+
+        {
+          ...
+          "dufl": {}
+        }
+
+        You can make new project with "npx dufl-scaffold" :) ...
+
+        Available package types : ${availablePkgTypes}
       `,
     ),
   );
@@ -48,8 +58,46 @@ if (!projectPkgType) {
   process.exit(1);
 }
 
-if (!ensurePkgTypeIsValid(Object.values(symbols.leafs), projectPkgType)) {
-  console.log(red(`Package type "${projectPkgType}" is not valid.`));
+if (!projectPkgType) {
+  console.log(
+    red(
+      outdent`
+        When using "dufl-cli", you should have a "type" field (in "dufl" field) in your "package.json".
+
+        {
+          ...
+          "dufl": {
+            "type": "pkg-type"
+          }
+        }
+
+        You can make new project with "npx dufl-scaffold" :) ...
+
+        Available package types : ${availablePkgTypes}
+      `,
+    ),
+  );
+
+  process.exit(1);
+}
+
+if (!ensurePkgTypeIsValid(Object.values(leafs), projectPkgType)) {
+  console.log(
+    red(
+      outdent`
+        Package type "${projectPkgType}" is not valid.
+
+        {
+          ...
+          "dufl": {
+            "type": "${projectPkgType}"
+          }
+        }
+
+        Available package types : ${availablePkgTypes}
+      `,
+    ),
+  );
 
   process.exit(1);
 }
@@ -57,7 +105,7 @@ if (!ensurePkgTypeIsValid(Object.values(symbols.leafs), projectPkgType)) {
 const leaf = require(`dufl/leafs/${projectPkgType}`);
 
 const help = outdent`
-  Available package types : ${Object.values(symbols.leafs).join(', ')}
+  Available package types : ${availablePkgTypes}
 `;
 
 const ref = program
@@ -68,7 +116,7 @@ const ref = program
 
 const leafExecuted = leaf({
   outdent,
-  symbols: symbols.commands,
+  commands,
 });
 
 const requiredFiles = leafExecuted.requiredFiles || [];
@@ -90,13 +138,14 @@ for (let [command, options] of Object.entries(leafCommands)) {
     );
   }
 
-  subRef.action(params => {
+  subRef.action(() => {
     if (!options.env) {
       console.log(
         red(
           `Leaf "${projectPkgType}.${command}" need "env" property (production, development, test), custom env are not supported.`,
         ),
       );
+
       process.exit(1);
     }
 
@@ -106,6 +155,7 @@ for (let [command, options] of Object.entries(leafCommands)) {
           `Leaf "${projectPkgType}" can't run "${command}" command, are you sure this command exist ?`,
         ),
       );
+
       process.exit(1);
     }
 
@@ -119,11 +169,12 @@ for (let [command, options] of Object.entries(leafCommands)) {
       console.log(
         red(`Command "${command}" must have NODE_ENV=${options.env}}.`),
       );
+
       process.exit(1);
     }
 
     commands[command]({
-      params,
+      versions,
       projectPkg,
       output,
       paths,
