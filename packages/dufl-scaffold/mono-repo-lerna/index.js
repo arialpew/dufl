@@ -57,7 +57,7 @@ module.exports = ({ currentToolName, outdent }) => ({
       "packages": [
         "packages/*"
       ],
-      "version": "0.0.0"
+      "version": "0.0.1"
     }
   `,
   'packages/dev-utils/package.json': {
