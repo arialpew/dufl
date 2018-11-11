@@ -11,7 +11,12 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 
 const shouldUseSourceMap = false;
 
-module.exports = ({ paths, env, helpers: { css, eslint, terser } }) => {
+module.exports = ({
+  versions,
+  paths,
+  env,
+  helpers: { css, eslint, terser },
+}) => {
   // Webpack uses `publicPath` to determine where the app is being served from.
   // It requires a trailing slash, or the file assets will get an incorrect path.
   // `publicUrl` is just like `publicPath`, but we will provide it to our app
@@ -46,7 +51,7 @@ module.exports = ({ paths, env, helpers: { css, eslint, terser } }) => {
         shouldUseRelativeAssetPaths ? { publicPath: '../../' } : undefined,
       ),
     },
-    ...css({ cssOptions, shouldUseSourceMap }),
+    ...css({ browsers: versions.BROWSERS, cssOptions, shouldUseSourceMap }),
   ];
 
   return {

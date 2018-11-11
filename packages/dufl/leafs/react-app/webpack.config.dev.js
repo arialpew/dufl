@@ -7,7 +7,7 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 
 const shouldUseSourceMap = false;
 
-module.exports = ({ paths, env, helpers: { css, eslint } }) => {
+module.exports = ({ versions, paths, env, helpers: { css, eslint } }) => {
   // Webpack uses `publicPath` to determine where the app is being served from.
   // In development, we always serve from the root. This makes config easier.
   // `publicUrl` is just like `publicPath`, but we will provide it to our app
@@ -33,7 +33,7 @@ module.exports = ({ paths, env, helpers: { css, eslint } }) => {
 
   const getStyleLoaders = cssOptions => [
     require.resolve('style-loader'),
-    ...css({ cssOptions, shouldUseSourceMap }),
+    ...css({ browsers: versions.BROWSERS, cssOptions, shouldUseSourceMap }),
   ];
 
   return {
