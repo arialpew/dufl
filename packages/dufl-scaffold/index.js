@@ -149,9 +149,9 @@ const ref = program
         outdent`
           Package "${answers.name}" is now scaffolded in "${newPkgPath}". 
           
-          - If you are in a mono-repository, you should run "lerna run bootstrap" command in the root of your mono-repository to install dependencies.
+          - If you are in a mono-repository, you should run "lerna bootstrap" command in the root of your mono-repository.
 
-          - Otherwise, you should use "npm install".
+          - Otherwise, you should use "npm install" to install dependencies on the newly created package.
         `,
       ),
     );
