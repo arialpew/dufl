@@ -1,6 +1,7 @@
 {
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "publish": "lerna publish",
     "format": "prettier --write 'packages/*/*.*' \"packages/*/!(node_modules)/**/*.*\""
   },
   "devDependencies": {
