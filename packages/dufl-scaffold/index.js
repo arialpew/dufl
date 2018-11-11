@@ -151,7 +151,7 @@ const ref = program
           
           - If you are in a mono-repository, you should run "lerna bootstrap" command in the root of your mono-repository.
 
-          - Otherwise, you should use "npm install" to install dependencies on the newly created package.
+          - Otherwise, you should run "npm install" to install dependencies on the newly created package.
         `,
       ),
     );
