@@ -3,7 +3,6 @@
 	"private": true,
 	"version": "0.0.1",
 	"description": "Description",
-	"type": "react-app",
 	"scripts": {
 		"dev": "dufl-cli dev",
 		"build": "dufl-cli build",
@@ -22,5 +21,8 @@
 	"peerDependencies": {},
 	"eslintConfig": {
 		"extends": "react-app"
+	},
+	"dufl": {
+		"type": "react-app"
 	}
 }

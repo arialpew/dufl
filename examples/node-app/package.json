@@ -3,7 +3,6 @@
 	"private": true,
 	"version": "0.0.1",
 	"description": "Description",
-	"type": "node-app",
 	"bin": {
 		"dufl-node-app": "./build/dufl-node-app.js"
 	},
@@ -16,11 +15,14 @@
 		"dufl-cli": "dufl-cli"
 	},
 	"devDependencies": {
-		"dufl-cli": "^0.21.0"
+		"dufl-cli": "^0.22.0"
 	},
 	"dependencies": {},
 	"peerDependencies": {},
 	"eslintConfig": {
 		"extends": "react-app"
+	},
+	"dufl": {
+		"type": "node-app"
 	}
 }
