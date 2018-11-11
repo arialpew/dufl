@@ -4,7 +4,7 @@ Modern zero-config JavaScript toolchain.
 
 A fork of `create-react-app`, work with multiple JavaScript platform and support mono-repository.
 
-This project was made to match my personnal use-case but i think it's relevant to share it publicly.
+This project was made to match my personal use-case but i think it's relevant to share it publicly.
 
 ## Philosophy
 
@@ -88,9 +88,9 @@ project-name
 ├── package.json
 └── src
     ├── __tests__
-        ├── index.spec.js
+        └── index.spec.js
     ├── .env
-    ├── index.js
+    └── index.js
 ```
 
 > Note: You must create custom environment variables beginning with `DUFL_`. Any other variables except `NODE_ENV` will be ignored to avoid accidentally [exposing a private key on the machine that could have the same name](https://github.com/facebook/create-react-app/issues/865#issuecomment-252199527). Changing any environment variables will require you to restart the development server if it is running.
