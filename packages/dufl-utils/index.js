@@ -44,7 +44,6 @@ const createPkgJson = ({
   private: true,
   version: '0.0.1',
   description: 'Description',
-  type,
   ...header,
   scripts: {
     ...scripts,
@@ -57,6 +56,9 @@ const createPkgJson = ({
   dependencies,
   peerDependencies,
   ...footer,
+  dufl: {
+    type,
+  },
 });
 
 module.exports = {
