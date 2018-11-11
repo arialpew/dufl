@@ -7,7 +7,7 @@ module.exports = ({ currentToolName, outdent }) => ({
         "build": "lerna run build",
         "test": "lerna run test",
         "pkg": "lerna run pkg",
-        "clean": "learn clean",
+        "clean": "lerna clean",
         "bootstrap": "lerna bootstrap",
         "format": "prettier --write 'packages/*/*.*' 'packages/*/!(node_modules|build|bin|coverage)/**/*.*'"
       },
