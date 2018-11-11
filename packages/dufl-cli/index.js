@@ -25,7 +25,7 @@ const { name, version, description } = require('./package');
 const hasPkgJson = fs.existsSync(paths.appPackageJson);
 
 if (!hasPkgJson) {
-  console.log(red(`Package.json file is required in order to use "dufl-cli".`));
+  console.log(red(`Package.json file is required in order to use "dufl-cli" ...`));
 
   process.exit(1);
 }
@@ -52,13 +52,7 @@ if (!ensurePkgTypeIsValid(Object.values(symbols.leafs), projectPkgType)) {
   process.exit(1);
 }
 
-let leaf;
-
-if (projectPkgType === 'custom' && fs.existsSync(paths.leafSetup)) {
-  leaf = require(paths.leafSetup);
-} else {
-  leaf = require(`dufl/leafs/${projectPkgType}`);
-}
+const leaf = require(`dufl/leafs/${projectPkgType}`);
 
 const help = outdent`
   Available package types : ${Object.values(symbols.leafs).join(', ')}
@@ -98,7 +92,7 @@ for (let [command, options] of Object.entries(leafCommands)) {
     if (!options.env) {
       console.log(
         red(
-          `Leaf "${projectPkgType}.${command}" need "env" property (production, development, test), custom env are not supported at the moment`,
+          `Leaf "${projectPkgType}.${command}" need "env" property (production, development, test), custom env are not supported.`,
         ),
       );
       process.exit(1);
@@ -107,7 +101,7 @@ for (let [command, options] of Object.entries(leafCommands)) {
     if (!commands[command]) {
       console.log(
         red(
-          `Leaf "${projectPkgType}" can't run "${command}" command, custom command are not supported at the moment.`,
+          `Leaf "${projectPkgType}" can't run "${command}" command, are you sure this command exist ?`,
         ),
       );
       process.exit(1);

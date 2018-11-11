@@ -41,7 +41,6 @@ module.exports = {
   appSrc: resolveApp('src'),
   testsSetup: resolveApp('src/setup/test.js'),
   proxySetup: resolveApp('src/setup/proxy.js'),
-  leafSetup: resolveApp('leaf.js'),
   appNodeModules: resolveApp('node_modules'),
   publicUrl: envPublicUrl,
   servedPath: getServedPath(),
@@ -49,5 +48,4 @@ module.exports = {
   appNodeModulesPackageJson: pkg =>
     resolveApp(`node_modules/${pkg}/package.json`),
   monorepo: (pkg = undefined) => resolveApp('packages', pkg),
-  back: (pkg = undefined) => resolveApp('..', pkg),
 };
