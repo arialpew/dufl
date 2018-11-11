@@ -6,6 +6,8 @@ A fork of `create-react-app`, work with multiple JavaScript platform and support
 
 This project was made to match my personal use-case but i think it's relevant to share it publicly.
 
+**`Dufl` is not production-ready, you should be aware that some edge case can ruin everything so inspect your bundle with analyzer before deployment.**
+
 ## Philosophy
 
 Most of `create-react-app` philosphy apply to `Dufl` :
