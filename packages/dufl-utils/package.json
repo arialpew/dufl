@@ -1,6 +1,6 @@
 {
   "name": "dufl-utils",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "description": "Modern zero-config JavaScript toolchain",
   "author": "Robin Meillet <robin.meillet@epitech.eu>",
   "license": "MIT",
