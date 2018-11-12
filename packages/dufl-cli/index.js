@@ -16,7 +16,7 @@ const { cyan, red } = require('chalk');
 const { leafs, commands, versions } = require('dufl-symbols');
 const { formatOutput, ensurePkgTypeIsValid } = require('dufl-utils');
 const paths = require('dufl-utils/paths');
-const commands = require('dufl');
+const dufl = require('dufl');
 
 const getEnv = require('./get-env');
 
@@ -150,7 +150,7 @@ for (let [command, options] of Object.entries(leafCommands)) {
       process.exit(1);
     }
 
-    if (!commands[command]) {
+    if (!dufl[command]) {
       console.log(
         red(
           `Leaf "${projectPkgType}" can't run "${command}" command, are you sure this command exist ?`,
@@ -182,7 +182,7 @@ for (let [command, options] of Object.entries(leafCommands)) {
       process.exit(1);
     }
 
-    commands[command]({
+    dufl[command]({
       versions,
       projectPkg,
       output,
