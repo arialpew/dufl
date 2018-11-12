@@ -57,7 +57,7 @@ module.exports = ({ outdent, commands: { WATCH, BUILD, TEST, ANALYZER } }) => ({
     [TEST]: {
       description: 'Start test suites',
       help: outdent`
-        Tests are targeted when file path match "__tests__/*.spec.js".
+        Tests target files who are in "__tests__" folders, and files who have ".test.js" or ".spec.js" extension.
 
         We use Jest (https://jestjs.io) so you can put any Jest option like "test -- --watchAll" :) .
       `,
