@@ -28,7 +28,7 @@ module.exports = async ({ versions, paths, output, requiredFiles }) => {
     await exec([
       paths.resolver('build', `${output}.js`),
       '--targets',
-      generateVersion(`node${versions.NODE}`),
+      generateVersion(versions.NODE),
       '--output',
       paths.resolver('bin', output),
     ]);

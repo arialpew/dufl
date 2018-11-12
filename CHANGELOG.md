@@ -1,3 +1,7 @@
+# 0.23.0
+
+- Fix "pkg" command not running properly.
+
 # 0.22.0
 
 - Drop Node.js v9 support (we support Node.js v10+ now).
