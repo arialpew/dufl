@@ -34,8 +34,7 @@ if (!hasPkgJson) {
 
 const availablePkgTypes = Object.values(leafs).join(', ');
 const projectPkg = require(paths.appPackageJson);
-const projectPkgDufl = projectPkg.dufl || {};
-const projectPkgType = projectPkgDufl.type;
+const projectPkgDufl = projectPkg.dufl;
 
 if (!projectPkgDufl) {
   console.log(
@@ -57,6 +56,8 @@ if (!projectPkgDufl) {
 
   process.exit(1);
 }
+
+const projectPkgType = projectPkgDufl.type;
 
 if (!projectPkgType) {
   console.log(
