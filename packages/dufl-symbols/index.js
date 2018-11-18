@@ -15,8 +15,14 @@ const TEST = 'test';
 const WATCH = 'watch';
 
 const NODE = 10;
-const BROWSERS =
-  'last 2 Chrome version, last 1 Edge version, last 1 Firefox version, last 1 Safari version, last 1 and_chr version, last 1 ios_saf version';
+const BROWSERS = [
+  'last 2 Chrome version',
+  'last 1 Edge version',
+  'last 1 Firefox version',
+  'last 1 Safari version',
+  'last 1 and_chr version',
+  'last 1 ios_saf version',
+].join(', ');
 
 module.exports = {
   commands: {
