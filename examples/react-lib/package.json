@@ -14,13 +14,13 @@
 	},
 	"devDependencies": {
 		"dufl-cli": "^0.23.0",
-		"react": "^16.7.0-alpha.0",
-		"react-dom": "^16.7.0-alpha.0"
+		"react": "^16.7.0-alpha.2",
+		"react-dom": "^16.7.0-alpha.2"
 	},
 	"dependencies": {},
 	"peerDependencies": {
-		"react": "^16.7.0-alpha.0",
-		"react-dom": "^16.7.0-alpha.0"
+		"react": "^16.7.0-alpha.2",
+		"react-dom": "^16.7.0-alpha.2"
 	},
 	"eslintConfig": {
 		"extends": "react-app"

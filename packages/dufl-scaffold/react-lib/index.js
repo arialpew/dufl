@@ -17,12 +17,12 @@ module.exports = ({
       },
     },
     devDependencies: {
-      react: '^16.7.0-alpha.0',
-      'react-dom': '^16.7.0-alpha.0',
+      react: '^16.7.0-alpha.2',
+      'react-dom': '^16.7.0-alpha.2',
     },
     peerDependencies: {
-      react: '^16.7.0-alpha.0',
-      'react-dom': '^16.7.0-alpha.0',
+      react: '^16.7.0-alpha.2',
+      'react-dom': '^16.7.0-alpha.2',
     },
     scripts: {
       [WATCH]: `${currentToolName} ${WATCH}`,
