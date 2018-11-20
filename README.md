@@ -223,7 +223,7 @@ If your project needs more customization, you should not use `Dufl`.
 **Note :** There's no plan to :
 
 - Support CSS pre-processor like SASS.
-- Support TypeScript.
+- Support TypeScript/Flow.
 - Support all new ES features immediatly (example : Decorator and pipeline operator are not supported by `Dufl`).
 
 Difference with `create-react-app` when you use `Dufl` with `react-app` package type :
@@ -231,7 +231,7 @@ Difference with `create-react-app` when you use `Dufl` with `react-app` package 
 - No old browser/environment support (see philosophy).
 - No Yarn support.
 - No CSS module and no SASS preprocessor.
-- No TypeScript and no decorator.
+- No TypeScript/Flow and no decorator.
 - No polyfills and less code transformation (features like class, object-rest-spread or async/await are not transformed, just minified).
 - Env var supported but without expansion.
 - Webpack Bundle Analyzer is available to inspect bundle size.
@@ -250,15 +250,12 @@ Internally, `Dufl` use theses packages :
 ## Future Work
 
 - Ambigous package name is not supported, the CLI throw an error if something goes wrong with aliasing but scaffold don't care (we had to work more on how we handle aliasing) ?
-- No ESM output (Rollup ? Or don't care and wait ESM output support in Webpack) ?
-- The "nomodule" script tag ?
-- Modern browsers only (should we support more version ? Check which transform are enabled) ?
+- No ESM output ? "nomodule" script tag ?
+- Modern browsers only (should we support more version) ?
 - More help in CLI, documentation and clear error/debug mode ?
-- Avoid Emotion because Emotion doesn't support browserlist ? Go for CSS module ?
 - Internal "eslint" config ?
 - Update dependencies to latest version ?
 - Rebase things from `create-react-app` ?
-- Testing with virtual filesystem ?
 - New package type ?
 
 ## Updating To New Release
