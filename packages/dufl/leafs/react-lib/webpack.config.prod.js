@@ -28,7 +28,10 @@ module.exports = ({ paths, env, output, helpers: { eslint, terser } }) => ({
             options: {
               customize: require.resolve('babel-preset-dufl/webpack-overrides'),
               presets: [
-                [require.resolve('babel-preset-dufl'), { platform: 'web' }],
+                [
+                  require.resolve('babel-preset-dufl'),
+                  { platform: 'web', emotion: true },
+                ],
               ],
               plugins: [],
               babelrc: false,
