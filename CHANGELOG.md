@@ -1,7 +1,7 @@
 # 0.24.0
 
 - Enable Emotion Babel plugin in "React Lib" package type.
-- Bump React version in scaffoldd.
+- Bump React version in scaffold.
 
 # 0.23.0
 
