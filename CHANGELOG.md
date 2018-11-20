@@ -1,3 +1,8 @@
+# 0.24.0
+
+- Enable Emotion Babel plugin in "React Lib" package type.
+- Bump React version in scaffoldd.
+
 # 0.23.0
 
 - Fix "pkg" command not running properly.
