@@ -4,7 +4,7 @@ module.exports = ({
   outdent,
   output,
   currentToolName,
-  symbols: { WATCH, BUILD, TEST, ANALYZER },
+  symbols: { STYLEGUIDEV, STYLEGUIBUILD, WATCH, BUILD, TEST, ANALYZER },
 }) => ({
   'package.json': {
     header: {
@@ -25,6 +25,8 @@ module.exports = ({
       'react-dom': '^16.7.0-alpha.2',
     },
     scripts: {
+      [STYLEGUIDEV]: `${currentToolName} ${STYLEGUIDEV}`,
+      [STYLEGUIBUILD]: `${currentToolName} ${STYLEGUIBUILD}`,
       [WATCH]: `${currentToolName} ${WATCH}`,
       [BUILD]: `${currentToolName} ${BUILD}`,
       [TEST]: `${currentToolName} ${TEST}`,
