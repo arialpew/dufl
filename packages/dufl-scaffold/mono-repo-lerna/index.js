@@ -9,7 +9,7 @@ module.exports = ({ currentToolName, outdent }) => ({
         "pkg": "lerna run pkg",
         "clean": "lerna clean",
         "bootstrap": "lerna bootstrap",
-        "format": "prettier --write 'packages/*/*.*' 'packages/*/!(node_modules|build|bin|coverage)/**/*.*'"
+        "format": "prettier --write 'packages/*/*.*' 'packages/*/!(node_modules|build|bin|coverage|styleguide)/**/*.*'"
       },
       "devDependencies": {
         "lerna": "^3.4.3",
