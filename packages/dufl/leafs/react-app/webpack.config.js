@@ -21,7 +21,7 @@ module.exports = ({
   paths,
   alias,
   env,
-  helpers: { css, eslint },
+  helpers: { css, eslint, terser },
 }) => {
   const isProd = env.raw.NODE_ENV === 'production';
   const isDev = env.raw.NODE_ENV === 'development';
