@@ -2,10 +2,13 @@
 
 const sharedTestParams = require('../shared-test-params');
 
-const development = require('./webpack.config.dev');
-const production = require('./webpack.config.prod');
+const styleguidist = require('./webpack.config.styleguidist');
+const webpack = require('./webpack.config');
 
-module.exports = ({ outdent, commands: { WATCH, BUILD, TEST, ANALYZER } }) => ({
+module.exports = ({
+  outdent,
+  commands: { WATCH, BUILD, TEST, ANALYZER, STYLEGUIDEV, STYLEGUIBUILD },
+}) => ({
   shouldPass: ({ main }) => {
     if (!main) {
       throw new Error(
@@ -28,7 +31,7 @@ module.exports = ({ outdent, commands: { WATCH, BUILD, TEST, ANALYZER } }) => ({
 
         You can make production build with "build" command when you are done. 
      `,
-      webpack: development,
+      webpack,
       env: 'development',
     },
     [BUILD]: {
@@ -39,7 +42,7 @@ module.exports = ({ outdent, commands: { WATCH, BUILD, TEST, ANALYZER } }) => ({
 
         Optimization are applied (constant folding, dead code elimination, ...) and we output minifed JavaScript code.
       `,
-      webpack: production,
+      webpack,
       env: 'production',
     },
     [ANALYZER]: {
@@ -51,7 +54,7 @@ module.exports = ({ outdent, commands: { WATCH, BUILD, TEST, ANALYZER } }) => ({
 
         Go on your browser and you can see the entiere dependencies tree, search package, and more :) .
       `,
-      webpack: production,
+      webpack,
       env: 'production',
     },
     [TEST]: {
@@ -63,6 +66,26 @@ module.exports = ({ outdent, commands: { WATCH, BUILD, TEST, ANALYZER } }) => ({
       `,
       env: 'test',
       params: sharedTestParams(outdent),
+    },
+    [STYLEGUIDEV]: {
+      description: 'Start Styleguidist isolated development server',
+      help: outdent`
+        When you use "styleguidev" command, we will start a local server with live-reload (http://localhost:6060).
+
+        You should use "styleguidev" command with "watch" command, to get errors/warnings and build when something changes.
+
+        You can make production build with "styleguibuild" command when you are done.
+      `,
+      env: 'development',
+      webpack: styleguidist,
+    },
+    [STYLEGUIBUILD]: {
+      description: 'Build Styleguidist as static files (optimized bundle)',
+      help: outdent`
+        When you use "styleguibuild" command, we will build the styleguide for production.
+      `,
+      env: 'production',
+      webpack: styleguidist,
     },
   },
 });
