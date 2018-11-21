@@ -27,7 +27,11 @@ module.exports = ({
   },
   '.gitignore': outdent`
     node_modules
+    coverage
+    bin
+    build
     *.log
+    *.lock
     .env
   `,
   'src/index.js': outdent`

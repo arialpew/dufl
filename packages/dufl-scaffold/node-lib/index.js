@@ -25,17 +25,23 @@ module.exports = ({
   },
   '.gitignore': outdent`
     node_modules
+    coverage
+    build
     *.log
+    *.lock
     .env
   `,
-  'src/index.js': outdent`
-    export default () => 'Hello World';
+  'src/add.js': outdent`
+    export const add = (a, b) => a + b;
   `,
-  'src/__tests__/index.spec.js': outdent`
-    import lib from '../';
+  'src/index.js': outdent`
+    export * from './add';
+  `,
+  'src/__tests__/add.spec.js': outdent`
+    import { add } from './add';
 
-    it('should return "Hello World"', () => {
-      expect(lib()).toEqual('Hello World');
+    it('should add numbers', () => {
+      expect(add(1, 1)).toEqual(2);
     });
   `,
   '.env': outdent`

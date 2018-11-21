@@ -12,15 +12,20 @@ module.exports = ({ currentToolName, outdent }) => ({
         "format": "prettier --write 'packages/*/*.*' 'packages/*/!(node_modules|build|bin|coverage|styleguide)/**/*.*'"
       },
       "devDependencies": {
-        "lerna": "^3.4.3",
-        "prettier": "^1.15.1"
+        "lerna": "3.4.3",
+        "prettier": "1.15.1"
       }
     }
   `,
   '.gitignore': outdent`
     node_modules
-    packages/**/package.json.lerna_backup
+    coverage
+    bin
+    build
+    styleguide
     *.log
+    *.lock
+    packages/**/package.json.lerna_backup
     .env
   `,
   '.editorconfig': outdent`

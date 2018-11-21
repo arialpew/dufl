@@ -106,7 +106,10 @@ module.exports = ({
   `,
   '.gitignore': outdent`
     node_modules
+    coverage
+    build
     *.log
+    *.lock
     .env
   `,
   '.env': outdent`
