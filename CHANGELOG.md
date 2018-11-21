@@ -1,3 +1,9 @@
+# 0.26.0
+
+- Fix incorrect chunkhash from "react-app" package type in production.
+- Fix missing Styleguidist commands in CLI.
+- Scaffold are updated to match latest changes (more files in gitignore, styleguidist example, sticky Lerna/Prettier version in mono-repo).
+
 # 0.25.0
 
 - Add Styleguidist support for "react-lib" package type.
