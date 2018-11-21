@@ -36,11 +36,17 @@ module.exports = ({
       path: paths.appBuild,
       filename: `${output}.js`,
       // Point sourcemap entries to original disk location (format as URL on Windows).
-      devtoolModuleFilenameTemplate: info =>
-        path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
+      devtoolModuleFilenameTemplate: isProd
+        ? info =>
+            path
+              .relative(paths.appSrc, info.absoluteResourcePath)
+              .replace(/\\/g, '/')
+        : isDev &&
+          (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
     },
     optimization: {
-      minimizer: [isProd && terser({ shouldUseSourceMap })].filter(Boolean),
+      minimize: isProd,
+      minimizer: [terser({ shouldUseSourceMap })],
     },
     resolve: {
       alias,
@@ -68,7 +74,6 @@ module.exports = ({
                     { platform: 'web', emotion: true },
                   ],
                 ],
-                plugins: [],
                 babelrc: false,
                 configFile: false,
                 cacheDirectory: true,
@@ -89,9 +94,9 @@ module.exports = ({
                 ],
                 babelrc: false,
                 configFile: false,
-                compact: false,
                 cacheDirectory: true,
                 cacheCompression: isProd,
+                compact: false,
                 sourceMaps: false,
               },
             },

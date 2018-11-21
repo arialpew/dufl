@@ -36,7 +36,6 @@ module.exports = ({ paths, env, alias }) => {
                     { platform: 'web', emotion: true },
                   ],
                 ],
-                plugins: [],
                 babelrc: false,
                 configFile: false,
                 cacheDirectory: true,
