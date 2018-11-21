@@ -101,7 +101,7 @@ module.exports = ({
               .replace(/\\/g, '/')
         : isDev &&
           (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
-      paths: isProd ? paths.appBuild : undefined,
+      path: isProd ? paths.appBuild : undefined,
     },
     optimization: {
       minimize: isProd,

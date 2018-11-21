@@ -1,3 +1,7 @@
+# 0.27.0
+
+- Fix "react-app" bad Webpack configuration (paths -> path).
+
 # 0.26.0
 
 - Fix incorrect chunkhash from "react-app" package type in production.
