@@ -1,20 +1,48 @@
 'use strict';
 
+const path = require('path');
 const { DefinePlugin, HotModuleReplacementPlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
+const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
+const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const safePostCssParser = require('postcss-safe-parser');
 
 const shouldUseSourceMap = false;
 
-module.exports = ({ versions, paths, env, helpers: { css, eslint } }) => {
+module.exports = ({
+  versions,
+  paths,
+  alias,
+  env,
+  helpers: { css, eslint },
+}) => {
+  const isProd = env.raw.NODE_ENV === 'production';
+  const isDev = env.raw.NODE_ENV === 'development';
+  const sourcemaps = {
+    production: 'source-map',
+    development: 'cheap-module-source-map',
+  };
+  const sourcemap = sourcemaps[env.raw.NODE_ENV];
+
   // Webpack uses `publicPath` to determine where the app is being served from.
   // In development, we always serve from the root. This makes config easier.
   // `publicUrl` is just like `publicPath`, but we will provide it to our app
   // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
   // Omit trailing slash as %PUBLIC_PATH%/xyz looks better than %PUBLIC_PATH%xyz.
-  const publicPath = '/';
-  const publicUrl = '';
+  const publicPath = isProd ? paths.servedPath : '/';
+  const publicUrl = isProd ? publicPath.slice(0, -1) : '';
+
+  // This is for development only.
+  // Some apps do not use client-side routing with pushState.
+  // For these, "homepage" can be set to "." to enable relative asset paths.
+  const shouldUseRelativeAssetPaths = publicPath === './';
 
   const enhancedEnv = {
     ...env,
@@ -32,38 +60,80 @@ module.exports = ({ versions, paths, env, helpers: { css, eslint } }) => {
   };
 
   const getStyleLoaders = cssOptions => [
-    require.resolve('style-loader'),
+    isProd
+      ? {
+          loader: MiniCssExtractPlugin.loader,
+          options: Object.assign(
+            {},
+            shouldUseRelativeAssetPaths ? { publicPath: '../../' } : undefined,
+          ),
+        }
+      : require.resolve('style-loader'),
     ...css({ browsers: versions.BROWSERS, cssOptions, shouldUseSourceMap }),
   ];
 
   return {
-    devtool: 'cheap-module-source-map',
+    performance: false,
+    mode: env.raw.NODE_ENV,
+    bail: isProd,
+    devtool: shouldUseSourceMap ? sourcemap : false,
     entry: [
       // We include the app code last so that if there is a runtime error during
       // initialization, it doesn't blow up the WebpackDevServer client, and
       // changing JS code would still trigger a refresh.
-      require.resolve('react-dev-utils/webpackHotDevClient'),
+      isDev && require.resolve('react-dev-utils/webpackHotDevClient'),
       paths.appIndexJs,
-    ],
+    ].filter(Boolean),
     output: {
-      pathinfo: true,
-      // This does not produce a real file. It's just the virtual path that is
-      // served by WebpackDevServer in development. This is the JS bundle
-      // containing code from all our entry points, and the Webpack runtime.
-      filename: 'static/js/bundle.js',
-      chunkFilename: 'static/js/[name].chunk.js',
+      pathinfo: isDev,
+      filename: isDev
+        ? 'static/js/bundle.js'
+        : 'static/js/[name].[chunkhash:8].js',
+      chunkFilename: isDev
+        ? 'static/js/[name].chunk.js'
+        : 'static/js/[name].[chunkhash:8].chunk.js',
       // This is the URL that app is served from. We use "/" in development.
       publicPath,
+      // Point sourcemap entries to original disk location (format as URL on Windows).
+      devtoolModuleFilenameTemplate: info =>
+        path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
+      ...(isDev ? { path: paths.appBuild } : {}),
     },
     optimization: {
+      minimizer: [
+        isProd && terser({ shouldUseSourceMap }),
+        isProd &&
+          new OptimizeCSSAssetsPlugin({
+            cssProcessorOptions: {
+              parser: safePostCssParser,
+              map: shouldUseSourceMap
+                ? {
+                    // `inline: false` forces the sourcemap to be output into a
+                    // separate file
+                    inline: false,
+                    // `annotation: true` appends the sourceMappingURL to the end of
+                    // the css file, helping the browser find the sourcemap
+                    annotation: true,
+                  }
+                : false,
+            },
+          }),
+      ].filter(Boolean),
       splitChunks: {
         chunks: 'all',
         name: false,
       },
       runtimeChunk: true,
     },
+    resolve: {
+      alias,
+      plugins: [new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])],
+      extensions: ['.mjs', '.js', '.json'],
+    },
     module: {
+      strictExportPresence: true,
       rules: [
+        { parser: { requireEnsure: false } },
         eslint({ appSrc: paths.appSrc }),
         {
           oneOf: [
@@ -104,12 +174,9 @@ module.exports = ({ versions, paths, env, helpers: { css, eslint } }) => {
                 ],
                 babelrc: false,
                 configFile: false,
-                // This is a feature of `babel-loader` for webpack (not Babel itself).
-                // It enables caching results in ./node_modules/.cache/babel-loader/
-                // directory for faster rebuilds.
                 cacheDirectory: true,
-                // Don't waste time on Gzipping the cache.
-                cacheCompression: false,
+                cacheCompression: isProd,
+                compact: isProd,
               },
             },
             {
@@ -127,11 +194,7 @@ module.exports = ({ versions, paths, env, helpers: { css, eslint } }) => {
                 configFile: false,
                 compact: false,
                 cacheDirectory: true,
-                cacheCompression: false,
-                // If an error happens in a package, it's possible to be
-                // because it was compiled. Thus, we don't want the browser
-                // debugger to show the original code. Instead, the code
-                // being evaluated would be much more helpful.
+                cacheCompression: isProd,
                 sourceMaps: false,
               },
             },
@@ -141,6 +204,7 @@ module.exports = ({ versions, paths, env, helpers: { css, eslint } }) => {
                 importLoaders: 1,
                 sourceMap: shouldUseSourceMap,
               }),
+              sideEffects: isProd,
             },
             {
               exclude: [/\.(js|mjs)$/, /\.html$/, /\.json$/],
@@ -154,18 +218,42 @@ module.exports = ({ versions, paths, env, helpers: { css, eslint } }) => {
       ],
     },
     plugins: [
+      new PeerDepsExternalsPlugin(),
+      new ModuleNotFoundPlugin(paths.appPath),
+      new CaseSensitivePathsPlugin(),
       new DefinePlugin(enhancedEnv.stringified),
       new HtmlWebpackPlugin({
         inject: true,
         template: paths.appHtml,
+        minify: isProd
+          ? {
+              removeComments: true,
+              collapseWhitespace: true,
+              removeRedundantAttributes: true,
+              useShortDoctype: true,
+              removeEmptyAttributes: true,
+              removeStyleLinkTypeAttributes: true,
+              keepClosingSlash: true,
+              minifyJS: true,
+              minifyCSS: true,
+              minifyURLs: true,
+            }
+          : {},
       }),
+      isProd &&
+        new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
       new InterpolateHtmlPlugin(HtmlWebpackPlugin, enhancedEnv.raw),
       new HotModuleReplacementPlugin(),
       new ManifestPlugin({
         fileName: 'asset-manifest.json',
         publicPath,
       }),
-    ],
+      isProd &&
+        new MiniCssExtractPlugin({
+          filename: 'static/css/[name].[contenthash:8].css',
+          chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+        }),
+    ].filter(Boolean),
     node: {
       dgram: 'empty',
       fs: 'empty',

@@ -51,7 +51,9 @@ module.exports = ({
     target: 'node',
     externals: [nodeExternals()],
     module: {
+      strictExportPresence: true,
       rules: [
+        { parser: { requireEnsure: false } },
         eslint({ appSrc: paths.appSrc }),
         {
           test: /\.(js|mjs)$/,
