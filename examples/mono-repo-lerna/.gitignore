@@ -1,4 +1,9 @@
 node_modules
-packages/**/package.json.lerna_backup
+coverage
+bin
+build
+styleguide
 *.log
+*.lock
+packages/**/package.json.lerna_backup
 .env

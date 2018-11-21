@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Component from '../Component';
+import { Component } from '../Component';
 
 it('render without crashing', () => {
   const div = document.createElement('div');

@@ -6,6 +6,8 @@
 	"main": "./build/dufl-react-lib.js",
 	"sideEffects": false,
 	"scripts": {
+		"styleguidev": "dufl-cli styleguidev",
+		"styleguibuild": "dufl-cli styleguibuild",
 		"watch": "dufl-cli watch",
 		"build": "dufl-cli build",
 		"test": "dufl-cli test",
@@ -13,7 +15,7 @@
 		"dufl-cli": "dufl-cli"
 	},
 	"devDependencies": {
-		"dufl-cli": "^0.24.0",
+		"dufl-cli": "^0.26.0",
 		"react": "^16.7.0-alpha.2",
 		"react-dom": "^16.7.0-alpha.2"
 	},

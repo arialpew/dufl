@@ -8,7 +8,7 @@
     "format": "prettier --write 'packages/*/*.*' 'packages/*/!(node_modules|build|bin|coverage)/**/*.*'"
   },
   "devDependencies": {
-    "lerna": "^3.4.3",
-    "prettier": "^1.15.1"
+    "lerna": "3.4.3",
+    "prettier": "1.15.1"
   }
 }

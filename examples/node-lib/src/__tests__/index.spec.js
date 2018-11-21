@@ -1,5 +1,5 @@
-import lib from '../';
+import { add } from './add';
 
-it('should return "Hello World"', () => {
-  expect(lib()).toEqual('Hello World');
+it('should add numbers', () => {
+  expect(add(1, 1)).toEqual(2);
 });
