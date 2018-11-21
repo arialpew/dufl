@@ -88,7 +88,7 @@ module.exports = ({
           clearConsole();
         }
 
-        console.log(chalk.cyan('Starting the development server...\n'));
+        console.log(chalk.cyan('Starting the development server ...\n'));
 
         openBrowser(urls.localUrlForBrowser);
       });
