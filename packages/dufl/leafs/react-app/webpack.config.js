@@ -8,7 +8,6 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
-const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -218,7 +217,6 @@ module.exports = ({
       ],
     },
     plugins: [
-      new PeerDepsExternalsPlugin(),
       new ModuleNotFoundPlugin(paths.appPath),
       new CaseSensitivePathsPlugin(),
       new DefinePlugin(enhancedEnv.stringified),

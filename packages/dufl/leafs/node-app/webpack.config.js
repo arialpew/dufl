@@ -4,7 +4,6 @@ const path = require('path');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
-const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const { DefinePlugin } = require('webpack');
 
@@ -75,7 +74,6 @@ module.exports = ({
       ],
     },
     plugins: [
-      new PeerDepsExternalsPlugin(),
       new ModuleNotFoundPlugin(paths.appPath),
       new CaseSensitivePathsPlugin(),
       new DefinePlugin(env.stringified),
