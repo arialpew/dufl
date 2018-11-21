@@ -13,6 +13,8 @@ const DEV = 'dev';
 const PKG = 'pkg';
 const TEST = 'test';
 const WATCH = 'watch';
+const STYLEGUIDEV = 'styleguidev';
+const STYLEGUIBUILD = 'styleguibuild';
 
 const NODE = 10;
 const BROWSERS = [
@@ -32,6 +34,8 @@ module.exports = {
     PKG,
     TEST,
     WATCH,
+    STYLEGUIDEV,
+    STYLEGUIBUILD,
   },
   leafs: {
     MONO_REPO_LERNA,
