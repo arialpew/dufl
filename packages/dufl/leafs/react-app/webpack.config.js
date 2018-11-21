@@ -58,18 +58,18 @@ module.exports = ({
     },
   };
 
-  const getStyleLoaders = cssOptions => [
-    isProd
-      ? {
-          loader: MiniCssExtractPlugin.loader,
-          options: Object.assign(
-            {},
-            shouldUseRelativeAssetPaths ? { publicPath: '../../' } : undefined,
-          ),
-        }
-      : require.resolve('style-loader'),
-    ...css({ browsers: versions.BROWSERS, cssOptions, shouldUseSourceMap }),
-  ];
+  const getStyleLoaders = cssOptions =>
+    [
+      isProd && {
+        loader: MiniCssExtractPlugin.loader,
+        options: Object.assign(
+          {},
+          shouldUseRelativeAssetPaths ? { publicPath: '../../' } : undefined,
+        ),
+      },
+      isDev && require.resolve('style-loader'),
+      ...css({ browsers: versions.BROWSERS, cssOptions, shouldUseSourceMap }),
+    ].filter(Boolean);
 
   return {
     performance: false,
@@ -94,30 +94,35 @@ module.exports = ({
       // This is the URL that app is served from. We use "/" in development.
       publicPath,
       // Point sourcemap entries to original disk location (format as URL on Windows).
-      devtoolModuleFilenameTemplate: info =>
-        path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
-      ...(isDev ? { path: paths.appBuild } : {}),
+      devtoolModuleFilenameTemplate: isProd
+        ? info =>
+            path
+              .relative(paths.appSrc, info.absoluteResourcePath)
+              .replace(/\\/g, '/')
+        : isDev &&
+          (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
+      paths: isProd ? paths.appBuild : undefined,
     },
     optimization: {
+      minimize: isProd,
       minimizer: [
-        isProd && terser({ shouldUseSourceMap }),
-        isProd &&
-          new OptimizeCSSAssetsPlugin({
-            cssProcessorOptions: {
-              parser: safePostCssParser,
-              map: shouldUseSourceMap
-                ? {
-                    // `inline: false` forces the sourcemap to be output into a
-                    // separate file
-                    inline: false,
-                    // `annotation: true` appends the sourceMappingURL to the end of
-                    // the css file, helping the browser find the sourcemap
-                    annotation: true,
-                  }
-                : false,
-            },
-          }),
-      ].filter(Boolean),
+        terser({ shouldUseSourceMap }),
+        new OptimizeCSSAssetsPlugin({
+          cssProcessorOptions: {
+            parser: safePostCssParser,
+            map: shouldUseSourceMap
+              ? {
+                  // `inline: false` forces the sourcemap to be output into a
+                  // separate file
+                  inline: false,
+                  // `annotation: true` appends the sourceMappingURL to the end of
+                  // the css file, helping the browser find the sourcemap
+                  annotation: true,
+                }
+              : false,
+          },
+        }),
+      ],
       splitChunks: {
         chunks: 'all',
         name: false,
@@ -191,9 +196,9 @@ module.exports = ({
                 ],
                 babelrc: false,
                 configFile: false,
-                compact: false,
                 cacheDirectory: true,
                 cacheCompression: isProd,
+                compact: false,
                 sourceMaps: false,
               },
             },
@@ -203,7 +208,11 @@ module.exports = ({
                 importLoaders: 1,
                 sourceMap: shouldUseSourceMap,
               }),
-              sideEffects: isProd,
+              // Don't consider CSS imports dead code even if the
+              // containing package claims to have no side effects.
+              // Remove this when webpack adds a warning or an error for this.
+              // See https://github.com/webpack/webpack/issues/6571
+              sideEffects: true,
             },
             {
               exclude: [/\.(js|mjs)$/, /\.html$/, /\.json$/],
@@ -241,7 +250,7 @@ module.exports = ({
       isProd &&
         new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
       new InterpolateHtmlPlugin(HtmlWebpackPlugin, enhancedEnv.raw),
-      new HotModuleReplacementPlugin(),
+      isDev && new HotModuleReplacementPlugin(),
       new ManifestPlugin({
         fileName: 'asset-manifest.json',
         publicPath,
