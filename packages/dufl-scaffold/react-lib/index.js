@@ -34,20 +34,18 @@ module.exports = ({
     },
   },
   'src/index.js': outdent`
-    import Component from './Component';
-
-    export { Component };
+    export * from './Component';
   `,
   'src/Component.js': outdent`
     import React from 'react';
 
-    export default () => <div>{'Hello World'}</div>;
+    export const Component = () => <div>{'Hello World'}</div>;
   `,
   'src/__tests__/Component.spec.js': outdent`
     import React from 'react';
     import ReactDOM from 'react-dom';
 
-    import Component from '../Component';
+    import { Component } from '../Component';
 
     it('render without crashing', () => {
       const div = document.createElement('div');
