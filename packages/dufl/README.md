@@ -50,17 +50,17 @@ npx dufl-scaffold
 
 _([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and higher)_
 
-**Warning :** we highly discourage to use global installation, instead you should prefer "npx".
+**Warning :** we highly discourage to use global installation, instead you should prefer `npx`.
 
 It will create a directory [project-name] in the current folder.
 
-When you make new package with "dufl-scaffold", you will be prompted for :
+When you make new package with `dufl-scaffold`, you will be prompted for :
 
 - **Package name :** choose a NPM package name (example : @organization/project, project, organization-project, my-long-project, ...).
 
 - **Package type :** this determine which platform and project type you will make (Node.js application or library ? React.js application or library ?).
 
-**Note :** We use package.json "dufl" key to determine which platform is targeted. Don't be surprised if you notice this new key.
+**Note :** We use package.json `dufl` key to determine which platform is targeted. Don't be surprised if you notice this new key.
 
 ```js
 {
@@ -111,26 +111,26 @@ No configuration or complicated folder structures, just the files you need to bu
 Inside the newly created project, you can run some built-in commands which depends on your package type :
 
 ```
-|------------------------------------------------------------------|
-|     #     | build  | dev   | watch  | pkg   | test  | analyzer   |
-|:---------:|:------:|:-----:|:------:|:-----:|:-----:|:----------:|
-|  node-app |   ✅   |  ❌  |   ✅   |  ✅  |   ✅  |     ✅    |
-|------------------------------------------------------------------|
-|  node-lib |   ✅   |  ❌  |   ✅   |  ❌  |   ✅  |     ✅    |
-|------------------------------------------------------------------|
-| react-app |   ✅   |  ✅  |   ❌   |  ❌  |   ✅  |     ✅    |
-|------------------------------------------------------------------|
-| react-lib |   ✅   |  ❌  |   ✅   |  ❌  |   ✅  |     ✅    |
-|------------------------------------------------------------------|
+|---------------------------------------------------------------------------------------------------|
+|     #     | build  | dev   | watch  | styleguidev  | styleguibuild | pkg    | test   | analyzer   |
+|:---------:|:------:|:-----:|:------:|:------------:|:-------------:|:------:|:------:|:-----------|
+|  node-app |   ✅   |  ❌  |   ✅   |     ❌      |       ❌      |  ✅   |   ✅   |     ✅    |
+|---------------------------------------------------------------------------------------------------|
+|  node-lib |   ✅   |  ❌  |   ✅   |     ❌      |       ❌      |  ❌   |   ✅   |     ✅    |
+|---------------------------------------------------------------------------------------------------|
+| react-app |   ✅   |  ✅  |   ❌   |     ❌      |       ❌      |  ❌   |   ✅   |     ✅    |
+|---------------------------------------------------------------------------------------------------|
+| react-lib |   ✅   |  ❌  |   ✅   |     ✅      |       ✅      |  ❌   |   ✅   |     ✅    |
+|---------------------------------------------------------------------------------------------------|
 ```
 
-Use "dufl-cli" to run command :
+Use `dufl-cli` to show available command :
 
 ```sh
 npm run dufl-cli
 ```
 
-Show help for specific command (like "test") :
+Show help for specific command (like `test`) :
 
 ```sh
 npm run dufl-cli test -- --help
@@ -161,12 +161,30 @@ You will see the build errors and lint warnings in the console.
 <img src='https://cdn.rawgit.com/marionebl/create-react-app/9f62826/screencast-error.svg' width='600' alt='Build errors'>
 </p>
 
+### `npm run styleguidev`
+
+**Supported package type :** react-lib
+
+Runs the style guide in **isolated** development mode.<br>
+Open [http://localhost:6060](http://localhost:6060) to view it in the browser.
+
+The page will automatically reload if you make changes to the code.<br>
+
+### `npm run styleguibuild`
+
+**Supported package type :** react-lib
+
+Builds the style guide for production to the `styleguide` folder.<br>
+It correctly enforce production mode, bundle source code and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes if necessary.<br>
+
 ### `npm run watch`
 
 **Supported package type :** node-app, node-lib, react-lib
 
 Runs the project in watch mode.<br>
-It's like "npm run dev", but without development server.
+There's no development server, it watch source code and build if you make changes to the code.
 
 You will see the build errors and lint warnings in the console.
 
@@ -185,7 +203,7 @@ This will produce binaries for Windows/MacOS/Linux (64 bits).
 Runs the test in non-interactive mode.<br>
 By default, runs tests related to files changed since the last commit.
 
-If you want to run watch mode, put "--watch" flag after the command.
+If you want to run watch mode, put `--watch` flag after the command.
 
 ```sh
 npm run test -- --watch
@@ -210,6 +228,7 @@ Your environment will have everything you need to build project :
 - Emotion transformation and Babel macro support.
 - A fast interactive unit test runner with built-in support for coverage reporting.
 - A live development server that warns about common mistakes.
+- A isolated live development server to create React components and write styleguide with Markdown.
 - A build script to bundle JS, JSON, CSS, SVG and images for production, with hashes and sourcemaps.
 - A package script to bundle your app + Node.js v10 into x64 Windows/MacOS/Linux binaries.
 - A analyzer script to check if your bundle is bloated with duplicate dependencies easily.
@@ -224,7 +243,7 @@ If your project needs more customization, you should not use `Dufl`.
 **Note :** There's no plan to :
 
 - Support CSS pre-processor like SASS.
-- Support TypeScript.
+- Support TypeScript/Flow.
 - Support all new ES features immediatly (example : Decorator and pipeline operator are not supported by `Dufl`).
 
 Difference with `create-react-app` when you use `Dufl` with `react-app` package type :
@@ -232,7 +251,7 @@ Difference with `create-react-app` when you use `Dufl` with `react-app` package 
 - No old browser/environment support (see philosophy).
 - No Yarn support.
 - No CSS module and no SASS preprocessor.
-- No TypeScript and no decorator.
+- No TypeScript/Flow and no decorator.
 - No polyfills and less code transformation (features like class, object-rest-spread or async/await are not transformed, just minified).
 - Env var supported but without expansion.
 - Webpack Bundle Analyzer is available to inspect bundle size.
@@ -247,19 +266,16 @@ Internally, `Dufl` use theses packages :
 - Jest
 - ESlint
 - Pkg
+- Styleguidist
 
 ## Future Work
 
 - Ambigous package name is not supported, the CLI throw an error if something goes wrong with aliasing but scaffold don't care (we had to work more on how we handle aliasing) ?
-- No ESM output (Rollup ? Or don't care and wait ESM output support in Webpack) ?
-- The "nomodule" script tag ?
-- Modern browsers only (should we support more version ? Check which transform are enabled) ?
+- No ESM output ? "nomodule" script tag ?
+- Modern browsers only (should we support more version) ?
 - More help in CLI, documentation and clear error/debug mode ?
-- Avoid Emotion because Emotion doesn't support browserlist ? Go for CSS module ?
 - Internal "eslint" config ?
-- Update dependencies to latest version ?
-- Rebase things from `create-react-app` ?
-- Testing with virtual filesystem ?
+- Update dependencies to latest version ? Rebase things from `create-react-app` ?
 - New package type ?
 
 ## Updating To New Release
