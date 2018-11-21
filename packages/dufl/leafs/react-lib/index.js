@@ -2,7 +2,7 @@
 
 const sharedTestParams = require('../shared-test-params');
 
-const styleguidist = require('./webpack.config.styleguidist');
+const stylegui = require('./webpack.config.stylegui');
 const webpack = require('./webpack.config');
 
 module.exports = ({
@@ -77,7 +77,7 @@ module.exports = ({
         You can make production build with "styleguibuild" command when you are done.
       `,
       env: 'development',
-      webpack: styleguidist,
+      webpack: stylegui,
     },
     [STYLEGUIBUILD]: {
       description: 'Build Styleguidist as static files (optimized bundle)',
@@ -85,7 +85,7 @@ module.exports = ({
         When you use "styleguibuild" command, we will build the styleguide for production.
       `,
       env: 'production',
-      webpack: styleguidist,
+      webpack: stylegui,
     },
   },
 });

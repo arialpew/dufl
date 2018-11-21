@@ -2,8 +2,7 @@
 
 const sharedTestParams = require('../shared-test-params');
 
-const development = require('./webpack.config.dev');
-const production = require('./webpack.config.prod');
+const webpack = require('./webpack.config');
 
 module.exports = ({ outdent, commands: { WATCH, BUILD, TEST, ANALYZER } }) => ({
   shouldPass: ({ main }) => {
@@ -28,7 +27,7 @@ module.exports = ({ outdent, commands: { WATCH, BUILD, TEST, ANALYZER } }) => ({
 
         You can make production build with "build" command when you are done. 
      `,
-      webpack: development,
+      webpack,
       env: 'development',
     },
     [BUILD]: {
@@ -39,7 +38,7 @@ module.exports = ({ outdent, commands: { WATCH, BUILD, TEST, ANALYZER } }) => ({
 
         Optimization are applied (constant folding, dead code elimination, ...) and we output minifed JavaScript code.
       `,
-      webpack: production,
+      webpack,
       env: 'production',
     },
     [ANALYZER]: {
@@ -51,7 +50,7 @@ module.exports = ({ outdent, commands: { WATCH, BUILD, TEST, ANALYZER } }) => ({
 
         Go on your browser and you can see the entiere dependencies tree, search package, and more :) .
       `,
-      webpack: production,
+      webpack,
       env: 'production',
     },
     [TEST]: {

@@ -5,6 +5,7 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 const { DefinePlugin } = require('webpack');
 
 const shouldUseSourceMap = false;
@@ -20,7 +21,7 @@ module.exports = ({
   const isDev = env.raw.NODE_ENV === 'development';
   const sourcemaps = {
     production: 'source-map',
-    development: 'cheap-module-source-map',
+    development: 'inline-source-map',
   };
   const sourcemap = sourcemaps[env.raw.NODE_ENV];
 
@@ -47,55 +48,27 @@ module.exports = ({
       plugins: [new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])],
       extensions: ['.mjs', '.js', '.json'],
     },
+    target: 'node',
+    externals: [nodeExternals()],
     module: {
-      strictExportPresence: true,
       rules: [
-        { parser: { requireEnsure: false } },
         eslint({ appSrc: paths.appSrc }),
         {
-          oneOf: [
-            {
-              test: /\.(js|mjs)$/,
-              include: paths.appSrc,
-              loader: require.resolve('babel-loader'),
-              options: {
-                customize: require.resolve(
-                  'babel-preset-dufl/webpack-overrides',
-                ),
-                presets: [
-                  [
-                    require.resolve('babel-preset-dufl'),
-                    { platform: 'web', emotion: true },
-                  ],
-                ],
-                plugins: [],
-                babelrc: false,
-                configFile: false,
-                cacheDirectory: true,
-                cacheCompression: isProd,
-                compact: isProd,
-              },
-            },
-            {
-              test: /\.(js|mjs)$/,
-              exclude: /@babel(?:\/|\\{1,2})runtime/,
-              loader: require.resolve('babel-loader'),
-              options: {
-                presets: [
-                  [
-                    require.resolve('babel-preset-dufl/dependencies'),
-                    { helpers: true },
-                  ],
-                ],
-                babelrc: false,
-                configFile: false,
-                compact: false,
-                cacheDirectory: true,
-                cacheCompression: isProd,
-                sourceMaps: false,
-              },
-            },
-          ],
+          test: /\.(js|mjs)$/,
+          include: paths.appSrc,
+          loader: require.resolve('babel-loader'),
+          options: {
+            customize: require.resolve('babel-preset-dufl/webpack-overrides'),
+            presets: [
+              [require.resolve('babel-preset-dufl'), { platform: 'node' }],
+            ],
+            plugins: [],
+            babelrc: false,
+            configFile: false,
+            cacheDirectory: true,
+            cacheCompression: isProd,
+            compact: isProd,
+          },
         },
       ],
     },
@@ -105,12 +78,5 @@ module.exports = ({
       new CaseSensitivePathsPlugin(),
       new DefinePlugin(env.stringified),
     ],
-    node: {
-      dgram: 'empty',
-      fs: 'empty',
-      net: 'empty',
-      tls: 'empty',
-      child_process: 'empty',
-    },
   };
 };

@@ -2,8 +2,7 @@
 
 const sharedTestParams = require('../shared-test-params');
 
-const development = require('./webpack.config.dev');
-const production = require('./webpack.config.prod');
+const webpack = require('./webpack.config');
 
 module.exports = ({
   outdent,
@@ -35,7 +34,7 @@ module.exports = ({
 
         You can use "nodemon" in conjuction with this command if you want to restart your app automatically.
      `,
-      webpack: development,
+      webpack,
       env: 'development',
     },
     [BUILD]: {
@@ -48,7 +47,7 @@ module.exports = ({
 
         After this step, you can package your Node.js application with "pkg" command ; it will build x64 binaries for Windows/MacOS/Linux.
       `,
-      webpack: production,
+      webpack,
       env: 'production',
     },
     [PKG]: {
@@ -72,7 +71,7 @@ module.exports = ({
 
         Go on your browser and you can see the entiere dependencies tree, search package, and more :) .
       `,
-      webpack: production,
+      webpack,
       env: 'production',
     },
     [TEST]: {
