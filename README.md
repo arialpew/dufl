@@ -70,6 +70,7 @@ When you make new package with `dufl-scaffold`, you will be prompted for :
   }
 }
 ```
+
 ### Folder Structure And Installation
 
 If you have a "packages" folder, your project will be created inside this folder instead of current folder (we support Lerna mono-repository).<br>
@@ -132,7 +133,7 @@ npm run dufl-cli
 Show help for specific command (like `test`) :
 
 ```sh
-npm run dufl-cli test -- --help
+npm run dufl-cli help test
 ```
 
 ### `npm run build`

@@ -133,7 +133,7 @@ npm run dufl-cli
 Show help for specific command (like `test`) :
 
 ```sh
-npm run dufl-cli test -- --help
+npm run dufl-cli help test
 ```
 
 ### `npm run build`
