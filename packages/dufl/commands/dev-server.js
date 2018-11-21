@@ -5,7 +5,7 @@ const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware')
 const evalSourceMapMiddleware = require('react-dev-utils/evalSourceMapMiddleware');
 const ignoredFiles = require('react-dev-utils/ignoredFiles');
 
-module.exports = (proxy, allowedHost, paths, publicPath) => ({
+module.exports = (proxy, allowedHost, paths) => ({
   // Enable gzip compression of generated files.
   compress: true,
   // Silence WebpackDevServer's own logs since they're generally not useful.
@@ -36,7 +36,7 @@ module.exports = (proxy, allowedHost, paths, publicPath) => ({
   hot: true,
   // It is important to tell WebpackDevServer to use the same "root" path
   // as we specified in the config. In development, we always serve from /.
-  publicPath,
+  publicPath: '/',
   // WebpackDevServer is noisy by default so we emit custom message instead
   // by listening to the compiler events with `compiler.hooks[...].tap` calls above.
   quiet: true,

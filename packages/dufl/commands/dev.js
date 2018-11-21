@@ -74,7 +74,6 @@ module.exports = ({
         proxyConfig,
         urls.lanUrlForConfig,
         paths,
-        webpackConfig.output.publicPath,
       );
 
       const devServer = new WebpackDevServer(compiler, serverConfig);
