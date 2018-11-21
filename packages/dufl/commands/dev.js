@@ -104,6 +104,7 @@ module.exports = ({
       if (err && err.message) {
         console.log(err.message);
       }
+
       process.exit(1);
     });
 };
