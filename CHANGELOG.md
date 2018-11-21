@@ -1,3 +1,7 @@
+# 0.25.0
+
+- Add Styleguidist support for "react-lib" package type.
+
 # 0.24.0
 
 - Enable Emotion Babel plugin in "React Lib" package type.
