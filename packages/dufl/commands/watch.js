@@ -7,7 +7,7 @@ const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printBuildError = require('react-dev-utils/printBuildError');
 const { map, toWebpack } = require('dufl-utils/map-peer-dependencies');
 
-const { base, eslint } = require('../webpack');
+const { css, eslint, terser } = require('../webpack');
 
 module.exports = ({
   versions,
@@ -29,9 +29,16 @@ module.exports = ({
 
       console.log(chalk.cyan('Starting watch mode...\n'));
 
-      const args = { versions, paths, output, alias, env, helpers: { eslint } };
+      const args = {
+        versions,
+        paths,
+        output,
+        alias,
+        env,
+        helpers: { css, eslint, terser },
+      };
 
-      const webpackConfig = base(options.webpack(args), args);
+      const webpackConfig = options.webpack(args);
 
       const compiler = webpack(webpackConfig);
 

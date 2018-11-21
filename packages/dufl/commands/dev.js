@@ -14,7 +14,7 @@ const {
 const openBrowser = require('react-dev-utils/openBrowser');
 const { map, toWebpack } = require('dufl-utils/map-peer-dependencies');
 
-const { base, css, eslint } = require('../webpack');
+const { css, eslint, terser } = require('../webpack');
 
 const createDevServerConfig = require('./dev-server');
 
@@ -54,10 +54,10 @@ module.exports = ({
         output,
         alias,
         env,
-        helpers: { css, eslint },
+        helpers: { css, eslint, terser },
       };
 
-      const webpackConfig = base(options.webpack(args), args);
+      const webpackConfig = options.webpack(args);
 
       const compiler = createCompiler(
         webpack,

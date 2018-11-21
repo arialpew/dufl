@@ -13,10 +13,10 @@ const {
 } = require('react-dev-utils/FileSizeReporter');
 const { map, toWebpack } = require('dufl-utils/map-peer-dependencies');
 
-const { base, css, eslint, terser } = require('../webpack');
-
 const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024;
 const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024;
+
+const { css, eslint, terser } = require('../webpack');
 
 module.exports = ({
   versions,
@@ -70,7 +70,7 @@ module.exports = ({
         helpers: { css, eslint, terser },
       };
 
-      const webpackConfig = base(options.webpack(args), args);
+      const webpackConfig = options.webpack(args);
 
       const compiler = webpack(webpackConfig);
 
