@@ -1,3 +1,7 @@
+# 0.28.0
+
+- Add Alpine-x64 in pkg output.
+
 # 0.27.0
 
 - Fix "react-app" bad Webpack configuration (paths -> path).
