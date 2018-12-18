@@ -5,7 +5,7 @@ const chalk = require('chalk');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 
 const generateVersion = node =>
-  ['linux-x64', 'win-x64', 'macos-x64']
+  ['linux-x64', 'win-x64', 'macos-x64', 'alpine-x64']
     .map(os => `node${node}-${os}`)
     .join(',');
 
