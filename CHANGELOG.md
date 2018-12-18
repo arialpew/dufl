@@ -1,3 +1,7 @@
+# 0.29.0
+
+- Add pooling in watch command.
+
 # 0.28.0
 
 - Add Alpine-x64 in pkg output.
