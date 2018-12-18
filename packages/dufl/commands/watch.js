@@ -42,7 +42,7 @@ module.exports = ({
 
       const compiler = webpack(webpackConfig);
 
-      const watcher = compiler.watch({}, (err, stats) => {
+      const watcher = compiler.watch({ poll: true }, (err, stats) => {
         let messages;
 
         if (err) {
